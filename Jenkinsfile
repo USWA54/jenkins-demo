@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Code cloned from GitHub'
+                sh 'docker build -t myapp .'
             }
         }
 
-        stage('Build') {
+        stage('Run Container') {
             steps {
-                echo 'Building project...'
+                sh 'docker run -d -p 9090:80 --name mycontainer myapp'
             }
         }
     }
